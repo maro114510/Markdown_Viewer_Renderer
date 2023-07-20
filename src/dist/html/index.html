@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>A4_Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- highlight.js -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+
+	<script src="./script/index.js"></script>
+	<link rel="stylesheet" href="./styles/style.css">
+	<script src="./script/directory.js"></script>
+	<script src="./script/view.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+	<script src="./script/mermaid.js"></script>
+</head>
+
+<body>
+	<div id="fixed-bar">
+		<div class="folder bar_button">
+			<a href="javascript:void(0);" class="btn f_atag"  id="bar_folder">
+				<img src="https://storage.googleapis.com/zenn-user-upload/d952fdac3686-20230608.png" alt="folder_close" width="36px">
+			</a>
+		</div>
+		<div class="bar_button" id="export_button">
+			<a href="javascript:void(0);" class="btn">
+				<img src="https://storage.googleapis.com/zenn-user-upload/571593fb5604-20230608.png" alt="export_button" width="36px">
+			</a>
+		</div>
+	</div>
+	<div id="directory">
+		<div id="directory-listing"></div>
+	</div>
+	<div class="main_content">
+		<div class="page"><h1>日本語がおかしい</h1>
+<h4>どうしても日本語がおかしくなる日本語</h4>
+<p>落馬する</p>
+<p>提供できます</p>
+<p>信貴山縁起絵巻、
+信貴山城
+→→ 方法論的な</p>
+<p>雛形 → 普通方法論の研究</p>
+<p>心
+ホルマリン漬け。
+バルマルシェコダマ</p>
+<pre><code class="language-js"><pre><code class="hljs js">fuction <span class="hljs-title function_">main</span>(<span class="hljs-params"></span>)
+{
+    <span class="hljs-keyword">let</span> compose = <span class="hljs-literal">null</span>;
+}</code></pre>
+</code></pre>
+<pre><code class="language-mermaid"><pre><code class="hljs mermaid">graph LR
+A[jap] --> B[mori]
+
+D[mori1] --> B[get2]
+B --- C[sup3]</code></pre>
+</code></pre>
+<pre><code class="language-mermaid"><pre><code class="hljs mermaid">graph LR
+A[日本語] --> B[日本語]
+
+D[四角形1] --> B[四角形2]
+B --- C[四角形3]</code></pre>
+</code></pre>
+<pre><code class="language-mermaid"><pre><code class="hljs mermaid">graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;</code></pre>
+</code></pre>
+<pre><code class="language-mermaid"><pre><code class="hljs mermaid">sequenceDiagram
+    participant 太郎
+    participant 花子
+    太郎->>花子: こんにちは、花子さん。元気ですか？
+    loop Healthcheck
+        花子->>太郎: Fight against hypochondria
+    end
+    Note right of 花子: Rational thoughts <br/>prevail!
+    花子-->>太郎: 良いですよ！
+    花子->>次郎: あなたはどうですか？
+    次郎-->>花子: とても良いです</code></pre>
+</code></pre>
+<pre><code class="language-mermaid"><pre><code class="hljs mermaid">gantt
+dateFormat  YYYY-MM-DD
+title ガントチャートのサンプル
+excludes weekdays 2014-01-10
+
+section A section
+完了したタスク            :done,    des1, 2022-07-06,2022-07-08
+アクティブなタスク        :active,  des2, 2022-07-09, 3d
+未来のタスク              :         des3, after des2, 5d
+別な未来のタスク          :         des4, after des3, 5d</code></pre>
+</code></pre>
+<pre><code class="language-mermaid"><pre><code class="hljs mermaid">Class diagram
+classDiagram
+Class01 <|-- AveryLongClass : Cool
+Class03 *-- Class04
+Class05 o-- Class06
+Class07 .. Class08
+Class09 --> C2 : Where am i?
+Class09 --* C3
+Class09 --|> Class07
+Class07 : equals()
+Class07 : Object[] elementData
+Class01 : size()
+Class01 : int chimp
+Class01 : int gorilla
+Class08 <--> C2: Cool label</code></pre>
+</code></pre>
+</div>
+
+	</div>
+</body>
+</html>

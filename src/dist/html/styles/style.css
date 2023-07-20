@@ -1,0 +1,210 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap");
+/* A4縦用のベース設定 */
+@page {
+  size: A4 portrait;
+  margin: 0mm;
+}
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  overflow: inherit;
+}
+body #fixed-bar {
+  position: fixed;
+  margin-top: -10px;
+  left: 0;
+  width: 60px;
+  min-width: 60px;
+  height: 100vh;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body #fixed-bar .bar_button {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+body #fixed-bar .bar_button a.btn {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-decoration: none;
+  box-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+  justify-content: center;
+  align-items: center;
+}
+body #fixed-bar .bar_button a.btn:hover {
+  background-color: rgb(220, 224, 251);
+  box-shadow: none;
+}
+body #fixed-bar .bar_button a.btn img {
+  vertical-align: middle;
+  margin-top: 0;
+  padding: 0;
+}
+body #directory {
+  position: fixed;
+  margin-top: -10px;
+  width: 200px;
+  height: 100vh;
+  left: 60px;
+  margin-right: 0px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: none;
+  overflow-x: scroll;
+}
+body #directory #directory-listing {
+  overflow: hidden;
+}
+body #directory #directory-listing ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+body #directory #directory-listing ul li {
+  padding: 0;
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+body #directory #directory-listing ul li a {
+  margin: 0;
+  padding: 2px;
+  text-decoration: none;
+  color: black;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+body #directory #directory-listing ul li a:hover {
+  background-color: rgb(220, 224, 251);
+}
+body #directory #directory-listing ul li:not(:hover) {
+  background-color: #eee;
+}
+body .main_content {
+  width: calc(100% - 60px);
+  margin-left: 60px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+body .page {
+  width: 210mm;
+  min-width: 210mm;
+  height: 296.5mm;
+  box-sizing: border-box;
+  padding: 20mm 25mm;
+  font-size: 11pt;
+  overflow: hidden;
+  position: relative;
+  white-space: normal;
+  text-overflow: ellipsis;
+  word-wrap: break-all;
+  flex-shrink: 0;
+}
+body .page .print-date {
+  display: none;
+  position: absolute;
+  top: 5mm;
+  right: 16mm;
+  font-size: 8pt;
+  color: #666;
+}
+body .page .file-name {
+  display: none;
+  position: absolute;
+  top: 6mm;
+  left: 16mm;
+  font-size: 8pt;
+  color: #666;
+}
+body .page table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+body .page table th, body .page table td {
+  border: 1px solid black;
+  padding: 8px;
+  white-space: normal;
+  word-break: break-all;
+}
+body .page table th {
+  background-color: #c6c6c6;
+}
+body .page-number {
+  position: absolute;
+  bottom: 6mm;
+  right: 25mm;
+  font-size: 10pt;
+  color: #666;
+}
+body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  border-left: 4px solid #ccc;
+}
+body .page-break {
+  page-break-after: always;
+}
+
+@media screen {
+  body {
+    background: #eee;
+  }
+  .page {
+    background: white;
+    box-shadow: 0 0.5mm 2mm rgba(0, 0, 0, 0.3);
+    margin: 5mm;
+  }
+  .page:last-child {
+    page-break-after: avoid;
+  }
+}
+@media print {
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body #fixed-bar {
+    display: none;
+  }
+  body #directory {
+    display: none;
+  }
+  body .main_content {
+    width: 100%;
+    margin-left: 0px;
+  }
+  body .page {
+    margin: 0;
+    box-shadow: none;
+  }
+  body .page .print-date {
+    display: block;
+  }
+  body .page .file-name {
+    display: block;
+  }
+  body .page:last-child {
+    page-break-after: avoid;
+  }
+  body .page-number {
+    display: block;
+  }
+}/*# sourceMappingURL=style.css.map */

@@ -16,61 +16,60 @@ document.addEventListener( "DOMContentLoaded", function () {
 window.onload = function ()
 {
 	main();
-	addAll();
-	cleanPage();
+	//addAll();
+	//cleanPage();
 };
 
 async function main()
 {
-	const MAX_PAGES = 100;
 	let pages = Array.from( document.querySelectorAll( ".page" ) );
 	const pageHeight = pages[ 0 ].clientHeight;
-	let pageCount = 0;
+	console.log( pageHeight );
 
 	for( let index = 0; index < pages.length; index++ )
 	{
 		const page = pages[ index ];
 		let contentHeight = page.scrollHeight;
+		console.log( contentHeight );
 
-		if( pageHeight < contentHeight )
-		{
-			let memo = null;
-			const overHeightElements = [];
-			const childrenElements = Array.from( page.children );
+		//if( pageHeight < contentHeight )
+		//{
+		//	let memo = null;
+		//	const overHeightElements = [];
+		//	const childrenElements = Array.from( page.children );
 
-			childrenElements.forEach( function ( element, index ) {
-				if( pageHeight <= element.offsetTop + element.offsetHeight )
-				{
-					if( memo === null )
-					{
-						memo = index;
-					}
-					overHeightElements.push( element );
-				}
-			});
+		//	childrenElements.forEach( function ( element, index ) {
+		//		if( pageHeight <= element.offsetTop + element.offsetHeight )
+		//		{
+		//			if( memo === null )
+		//			{
+		//				memo = index;
+		//			}
+		//			overHeightElements.push( element );
+		//		}
+		//	});
 
-			if( childrenElements[ memo ] )
-			{
-				overHeightElements.unshift( childrenElements[ memo - 1 ] );
-			}
+		//	if( childrenElements[ memo ] )
+		//	{
+		//		overHeightElements.unshift( childrenElements[ memo - 1 ] );
+		//	}
 
-			overHeightElements.forEach( function ( element ) {
-				element.parentNode.removeChild( element );
-			});
+		//	overHeightElements.forEach( function ( element ) {
+		//		element.parentNode.removeChild( element );
+		//	});
 
-			const newPage = document.createElement( "div" );
-			newPage.classList.add( "page" );
-			overHeightElements.forEach( function ( element ) {
-				newPage.appendChild( element );
-			});
-			page.parentNode.insertBefore( newPage, page.nextSibling );
+		//	const newPage = document.createElement( "div" );
+		//	newPage.classList.add( "page" );
+		//	overHeightElements.forEach( function ( element ) {
+		//		newPage.appendChild( element );
+		//	});
+		//	page.parentNode.insertBefore( newPage, page.nextSibling );
 
-			await new Promise( function ( resolve ) {
-				setTimeout( resolve, 100 );
-			});
-		}
-		pages = Array.from( document.querySelectorAll( ".page" ) );
-		pageCount++;
+		//	await new Promise( function ( resolve ) {
+		//		setTimeout( resolve, 100 );
+		//	});
+		//}
+		//pages = Array.from( document.querySelectorAll( ".page" ) );
 	}
 }
 

@@ -38,8 +38,8 @@ async function createWindow()
 		height: HEIGHT,
 		webPreferences: {
 			nodeIntegration: false,
-			contextIsolation: true,
-			sandbox: true,
+			contextIsolation: false,
+			sandbox: false,
 			devTools: true,
 			javascript: true,
 		}

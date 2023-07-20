@@ -1,7 +1,7 @@
 let directory = null;
 
 document.addEventListener( "DOMContentLoaded", async function () {
-	directory = await window.api.sendDirectoryToRenderer( directory );
+	//directory = await window.api.sendDirectoryToRenderer( directory );
 
 	if ( directory === null )
 	{

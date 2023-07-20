@@ -39,6 +39,7 @@ function createWindow() {
                 javascript: true,
             }
         });
+        mainWindow.webContents.openDevTools();
         mainWindow.loadURL('file://' + __dirname + '/html/index.html');
     });
 }

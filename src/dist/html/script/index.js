@@ -32,44 +32,41 @@ async function main()
 		let contentHeight = page.scrollHeight;
 		console.log( contentHeight );
 
-		//if( pageHeight < contentHeight )
-		//{
-		//	let memo = null;
-		//	const overHeightElements = [];
-		//	const childrenElements = Array.from( page.children );
+		if( pageHeight < contentHeight )
+		{
+			let memo = null;
+			const overHeightElements = [];
+			const childrenElements = Array.from( page.children );
 
-		//	childrenElements.forEach( function ( element, index ) {
-		//		if( pageHeight <= element.offsetTop + element.offsetHeight )
-		//		{
-		//			if( memo === null )
-		//			{
-		//				memo = index;
-		//			}
-		//			overHeightElements.push( element );
-		//		}
-		//	});
+			childrenElements.forEach( function ( element, index ) {
+				if( pageHeight <= element.offsetTop + element.offsetHeight )
+				{
+					if( memo === null )
+					{
+						memo = index;
+					}
+					overHeightElements.push( element );
+				}
+			});
 
-		//	if( childrenElements[ memo ] )
-		//	{
-		//		overHeightElements.unshift( childrenElements[ memo - 1 ] );
-		//	}
+			if( childrenElements[ memo ] )
+			{
+				overHeightElements.unshift( childrenElements[ memo - 1 ] );
+			}
 
-		//	overHeightElements.forEach( function ( element ) {
-		//		element.parentNode.removeChild( element );
-		//	});
+			overHeightElements.forEach( function ( element ) {
+				element.parentNode.removeChild( element );
+			});
 
-		//	const newPage = document.createElement( "div" );
-		//	newPage.classList.add( "page" );
-		//	overHeightElements.forEach( function ( element ) {
-		//		newPage.appendChild( element );
-		//	});
-		//	page.parentNode.insertBefore( newPage, page.nextSibling );
-
-		//	await new Promise( function ( resolve ) {
-		//		setTimeout( resolve, 100 );
-		//	});
-		//}
-		//pages = Array.from( document.querySelectorAll( ".page" ) );
+			const newPage = document.createElement( "div" );
+			newPage.classList.add( "page" );
+			overHeightElements.forEach( function ( element ) {
+				newPage.appendChild( element );
+			});
+			//インサートを非同期で保護
+			page.parentNode.insertBefore( newPage, page.nextSibling );
+		}
+		pages = Array.from( document.querySelectorAll( ".page" ) );
 	}
 }
 

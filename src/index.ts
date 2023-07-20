@@ -45,6 +45,8 @@ async function createWindow()
 		}
 	});
 
+	mainWindow.webContents.openDevTools();
+
 	mainWindow.loadURL(
 		'file://' + __dirname + '/html/index.html'
 	);

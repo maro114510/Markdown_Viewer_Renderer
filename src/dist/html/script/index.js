@@ -23,36 +23,27 @@ window.onload = function ()
 async function main()
 {
 	let pages = Array.from( document.querySelectorAll( ".page" ) );
+	let pageCount = pages.length;
 	const pageHeight = pages[ 0 ].clientHeight;
 	console.log( pageHeight );
 
-	for( let index = 0; index < pages.length; index++ )
+	for( let index = 0; index <= pageCount; index++ )
 	{
-		const page = pages[ index ];
+		let page = pages[ index ];
 		let contentHeight = page.scrollHeight;
 		console.log( contentHeight );
 
 		if( pageHeight < contentHeight )
 		{
-			let memo = null;
 			const overHeightElements = [];
 			const childrenElements = Array.from( page.children );
 
 			childrenElements.forEach( function ( element, index ) {
 				if( pageHeight <= element.offsetTop + element.offsetHeight )
 				{
-					if( memo === null )
-					{
-						memo = index;
-					}
 					overHeightElements.push( element );
 				}
 			});
-
-			if( childrenElements[ memo ] )
-			{
-				overHeightElements.unshift( childrenElements[ memo - 1 ] );
-			}
 
 			overHeightElements.forEach( function ( element ) {
 				element.parentNode.removeChild( element );
@@ -63,10 +54,11 @@ async function main()
 			overHeightElements.forEach( function ( element ) {
 				newPage.appendChild( element );
 			});
-			//インサートを非同期で保護
+			//##################################################################
+			//再帰関数化
 			page.parentNode.insertBefore( newPage, page.nextSibling );
+			//##################################################################
 		}
-		pages = Array.from( document.querySelectorAll( ".page" ) );
 	}
 }
 

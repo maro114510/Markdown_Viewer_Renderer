@@ -25,7 +25,6 @@ async function main()
 	let pages = Array.from( document.querySelectorAll( ".page" ) );
 	let pageCount = pages.length;
 	const pageHeight = pages[ 0 ].clientHeight;
-	console.log( pageHeight );
 
 	for( let index = 0; index <= pageCount; index++ )
 	{
@@ -38,8 +37,9 @@ async function main()
 			const overHeightElements = [];
 			const childrenElements = Array.from( page.children );
 
-			childrenElements.forEach( function ( element, index ) {
-				if( pageHeight <= element.offsetTop + element.offsetHeight )
+			childrenElements.forEach( function ( element ) {
+				//if( pageHeight <= element.offsetTop + element.offsetHeight )
+				if( pageHeight <= element.offsetHeight )
 				{
 					overHeightElements.push( element );
 				}

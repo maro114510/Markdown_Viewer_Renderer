@@ -26,39 +26,38 @@ async function main()
 	let pageCount = pages.length;
 	const pageHeight = pages[ 0 ].clientHeight;
 
-	for( let index = 0; index <= pageCount; index++ )
+	for( let index = 0; index <= pageCount; ++index )
 	{
 		let page = pages[ index ];
 		let contentHeight = page.scrollHeight;
-		console.log( contentHeight );
 
 		if( pageHeight < contentHeight )
 		{
 			const overHeightElements = [];
 			const childrenElements = Array.from( page.children );
-
+			
 			childrenElements.forEach( function ( element ) {
-				//if( pageHeight <= element.offsetTop + element.offsetHeight )
 				if( pageHeight <= element.offsetHeight )
 				{
 					overHeightElements.push( element );
 				}
 			});
-
+			
 			overHeightElements.forEach( function ( element ) {
 				element.parentNode.removeChild( element );
 			});
-
+			
 			const newPage = document.createElement( "div" );
 			newPage.classList.add( "page" );
 			overHeightElements.forEach( function ( element ) {
 				newPage.appendChild( element );
 			});
 			//##################################################################
-			//再帰関数化
 			page.parentNode.insertBefore( newPage, page.nextSibling );
 			//##################################################################
+			pageCount++;
 		}
+		console.log( index );å
 	}
 }
 

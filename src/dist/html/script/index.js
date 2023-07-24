@@ -1,40 +1,25 @@
 // This is real renderer process
 
-document.addEventListener( "DOMContentLoaded", function () {
-	const ExportButton = document.getElementById( 'export_button' );
-	ExportButton.addEventListener( 'click', function () {
-		/**
-		 * @desc: Send data to main process
-		 * @param: channel: string
-		 * @param: data: any
-		 */
-		const date = new Date();
-		window.api.sendToMain( 'export_pdf', date );
-	});
-});
-
-window.onload = function ()
-{
+document.addEventListener("DOMContentLoaded", function () {
 	main();
 	//addAll();
 	//cleanPage();
-};
+});
 
 async function main()
 {
-	let pages = Array.from( document.querySelectorAll( ".page" ) );
+	var pages = Array.from( document.querySelectorAll( ".page" ) );
 	let pageCount = pages.length;
 	const pageHeight = pages[ 0 ].clientHeight;
 
-	for( let index = 0; index <= pageCount; ++index )
+	for( let index = 0; index < pageCount; index++ )
 	{
-		let page = pages[ index ];
-		let contentHeight = page.scrollHeight;
+		let contentHeight = pages[ index ].scrollHeight;
 
 		if( pageHeight < contentHeight )
 		{
 			const overHeightElements = [];
-			const childrenElements = Array.from( page.children );
+			const childrenElements = Array.from( pages[ index ].children );
 			
 			childrenElements.forEach( function ( element ) {
 				if( pageHeight <= element.offsetHeight )
@@ -53,11 +38,13 @@ async function main()
 				newPage.appendChild( element );
 			});
 			//##################################################################
-			page.parentNode.insertBefore( newPage, page.nextSibling );
+			pages[ index ].parentNode.insertBefore( newPage, pages[ index ].nextSibling );
 			//##################################################################
 			pageCount++;
+
+			//pages = Array.from( document.querySelectorAll( ".page" ) );
+			console.log( pages );
 		}
-		console.log( index );å
 	}
 }
 

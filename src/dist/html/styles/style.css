@@ -110,7 +110,6 @@ body .page {
   box-sizing: border-box;
   padding: 20mm 25mm;
   font-size: 11pt;
-  overflow: hidden;
   position: relative;
   white-space: normal;
   text-overflow: ellipsis;

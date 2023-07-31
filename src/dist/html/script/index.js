@@ -1,51 +1,50 @@
 // This is real renderer process
 
-document.addEventListener("DOMContentLoaded", function () {
-	main();
-	//addAll();
-	//cleanPage();
+document.addEventListener("DOMContentLoaded", async function () {
+	await main();
 });
 
 async function main()
 {
 	var pages = Array.from( document.querySelectorAll( ".page" ) );
-	let pageCount = pages.length;
+	pageCount = pages.length;
 	const pageHeight = pages[ 0 ].clientHeight;
 
-	for( let index = 0; index < pageCount; index++ )
+	for( let index = 0; index < pages.length; index++ )
 	{
-		let contentHeight = pages[ index ].scrollHeight;
+		var contentHeight = pages[ index ].scrollHeight;
+		console.log( "contentHeight: " + contentHeight );
+		let overHeightElements = [];
 
-		if( pageHeight < contentHeight )
+		if( pageHeight <= contentHeight )
 		{
-			const overHeightElements = [];
-			const childrenElements = Array.from( pages[ index ].children );
-			
+			let childrenElements = Array.from( pages[ index ].children );
+			let accumulatedHeight = 0;
+	
 			childrenElements.forEach( function ( element ) {
-				if( pageHeight <= element.offsetHeight )
+				accumulatedHeight += element.offsetHeight;
+	
+				if( pageHeight <= accumulatedHeight )
 				{
 					overHeightElements.push( element );
 				}
 			});
-			
-			overHeightElements.forEach( function ( element ) {
-				element.parentNode.removeChild( element );
-			});
-			
+	
 			const newPage = document.createElement( "div" );
 			newPage.classList.add( "page" );
 			overHeightElements.forEach( function ( element ) {
 				newPage.appendChild( element );
 			});
-			//##################################################################
-			pages[ index ].parentNode.insertBefore( newPage, pages[ index ].nextSibling );
-			//##################################################################
-			pageCount++;
 
-			//pages = Array.from( document.querySelectorAll( ".page" ) );
-			console.log( pages );
+			//newPage.innerHTML = "<h1>TEST</h1>";
+			//pages.splice( index + 1, 0, newPage );
+			pages[ index ].parentNode.insertBefore( newPage, pages[ index + 1 ] );
+
+			console.log( newPage.innerHTML );
 		}
 	}
+
+	return Promise.resolve();
 }
 
 

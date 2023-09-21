@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<title>A4_Document</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+
 	<!-- highlight.js -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
 
@@ -19,13 +19,15 @@
 <body>
 	<div id="fixed-bar">
 		<div class="folder bar_button">
-			<a href="javascript:void(0);" class="btn f_atag"  id="bar_folder">
-				<img src="https://storage.googleapis.com/zenn-user-upload/d952fdac3686-20230608.png" alt="folder_close" width="36px">
+			<a href="javascript:void(0);" class="btn f_atag" id="bar_folder">
+				<img src="https://storage.googleapis.com/zenn-user-upload/d952fdac3686-20230608.png" alt="folder_close"
+					width="36px">
 			</a>
 		</div>
 		<div class="bar_button" id="export_button">
 			<a href="javascript:void(0);" class="btn">
-				<img src="https://storage.googleapis.com/zenn-user-upload/571593fb5604-20230608.png" alt="export_button" width="36px">
+				<img src="https://storage.googleapis.com/zenn-user-upload/571593fb5604-20230608.png" alt="export_button"
+					width="36px">
 			</a>
 		</div>
 	</div>
@@ -33,277 +35,281 @@
 		<div id="directory-listing"></div>
 	</div>
 	<div class="main_content">
-		<div class="page"><h1>クラス設計書 メイン</h1>
-<ul>
-<li>created by ( Atsuki Nohira )<ul>
-<li>created at 2023/06/04</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2>Summary</h2>
-<p>本文書は、Markdown_Viewerの起動時に呼び出されるメインクラスの設計書である。
-すでに作成されている<code>index.js</code>を元に、クラス設計書を作成する。</p>
-<h2>Purpose</h2>
-<p>クラス設計書を作成することで、クラスの役割や機能を明確にする。
-メンバ変数などを定義することで、変数の管理を厳格にする。</p>
-<p>メインプロセスとレンダラープロセスを峻別し、レンダラープロセスのクラス及びソースを別個に作成してモジュール化して読み込む</p>
-<hr>
-<h3>Before</h3>
-<ul>
-<li>メンバ変数<ul>
-<li>None</li>
-</ul>
-<div style="page-break-after: always;"></div>
-<div class="page-break"></div>
-</li>
-<li>関数<ul>
-<li>handleMain<ul>
-<li>パスの取得から、テンプレートへの挿入を行い監視するファイルのパス、テンプレートの絶対パスを返す</li>
-<li><strong>メインプロセス</strong></li>
-</ul>
-</li>
-<li>createWindow<ul>
-<li>ウインドウの作成を行う</li>
-<li>引数にテンプレートに挿入されたHTMLの絶対パスを受け取る</li>
-<li><strong>レンダラープロセス</strong></li>
-</ul>
-</li>
-<li>handleGetFilePath<ul>
-<li>パスを取得する関数のラッピングクラス</li>
-<li><strong>メインプロセス</strong></li>
-</ul>
-</li>
-<li>handleGetFileEncoding<ul>
-<li>開くマークダウンファイルのエンコーディングを取得する関数のラッピングクラス</li>
-<li>引数にマークダウンファイルの絶対パスを受け取る</li>
-<li><strong>メインプロセス</strong></li>
-</ul>
-</li>
-<li>handleMarkdown<ul>
-<li>マークダウンファイルをHTMLに変換する関数のラッピングクラス</li>
-<li>引数に開いたマークダウンファイルの内容を受け取る</li>
-<li><strong>メインプロセス</strong></li>
-</ul>
-</li>
-<li>handleInsertHTML<ul>
-<li>変換されたHTMLをテンプレートに挿入する関数のラッピングクラス</li>
-<li>引数としてテンプレートに挿入された表示するためのHTMLを受け取る</li>
-<li><strong>メインプロセス</strong></li>
-</ul>
-</li>
-<li>handleExportPDF<ul>
-<li>ドキュメントをPDFとして出力する関数のラッピングクラス</li>
-<li>引数に<code>BrowserWindow</code>、<code>dialog</code>のインスタンスを受け取る</li>
-<li><strong>メインプロセス</strong></li>
-</ul>
-</li>
-<li>watchFileChanges<ul>
-<li>編集しているファイルのパスを監視し、変更があった場合に再描画を行う関数</li>
-<li>引数<ul>
-<li><code>BrowserWindow</code>のインスタンス</li>
-<li>監視するファイルのパス</li>
-<li>テンプレートに挿入されたHTMLの絶対パス</li>
-<li>コールバック関数</li>
-</ul>
-</li>
-<li><strong>メインプロセス</strong></li>
-</ul>
-</li>
-<li>reloadWindow<ul>
-<li>ウインドウの再描画を行う関数</li>
-<li>引数に描画するファイルのパスを受け取る</li>
-<li><strong>レンダラープロセス</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2>再定義</h2>
-<h3>メンバ変数</h3>
-<table>
-<thead>
-<tr>
-<th align="center">変数名</th>
-<th align="center">型</th>
-<th align="center">内容</th>
-<th align="center">備考</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>mainWindow</code></td>
-<td align="center"><code>BrowserWindow</code></td>
-<td align="center">メインウインドウのインスタンス</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>currentDir</code></td>
-<td align="center"><code>string</code></td>
-<td align="center">プロジェクトのあるディレクトリの絶対パス</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>templatePath</code></td>
-<td align="center"><code>string</code></td>
-<td align="center">テンプレートの絶対パス</td>
-<td align="center">メインプロセス</td>
-</tr>
-<tr>
-<td align="center"><code>watchFilesPath</code></td>
-<td align="center"><code>list</code></td>
-<td align="center">監視するファイルの絶対パス</td>
-<td align="center">今後ディレクトリにて取得する可能性があるため、配列にする</td>
-</tr>
-<tr>
-<td align="center"><code>outputsPath</code></td>
-<td align="center"><code>list</code></td>
-<td align="center">出力するファイルの絶対パス</td>
-<td align="center">今後ディレクトリにて取得する可能性があるため、配列にする</td>
-</tr>
-<tr>
-<td align="center"><code>rendererApp</code></td>
-<td align="center"><code>RendererApp</code></td>
-<td align="center">レンダラープロセスのインスタンス</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<h3>関数</h3>
-<table>
-<thead>
-<tr>
-<th align="center">関数名</th>
-<th align="center">引数</th>
-<th align="center">戻り値</th>
-<th align="center">内容</th>
-<th align="center">備考</th>
-</tr>
-</thead>
-<div class="page-break"></div>
-<tbody><tr>
-<td align="center"><code>handleMain</code></td>
-<td align="center"><code>none</code></td>
-<td align="center"><code>none</code></td>
-<td align="center">メインプロセスの処理を行う関数</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>createWindow</code></td>
-<td align="center"><code>templatePath</code></td>
-<td align="center"><code>BrowserWindow</code></td>
-<td align="center">ウインドウの作成を行う関数</td>
-<td align="center">レンダラープロセスにてモジュール化し、本クラスで呼び出す</td>
-</tr>
-<tr>
-<td align="center"><code>handleGetFilePath</code></td>
-<td align="center"><code>none</code></td>
-<td align="center"><code>string</code></td>
-<td align="center">ファイルのパスを取得する関数のラッピングクラス</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>handleGetFileEncoding</code></td>
-<td align="center"><code>filePath</code></td>
-<td align="center"><code>string</code></td>
-<td align="center">ファイルのエンコーディングを取得する関数のラッピングクラス</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>handleMarkdown</code></td>
-<td align="center"><code>fileContent</code></td>
-<td align="center"><code>string</code></td>
-<td align="center">マークダウンファイルをHTMLに変換する関数のラッピングクラス</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>handleInsertHTML</code></td>
-<td align="center"><code>html</code></td>
-<td align="center"><code>string</code></td>
-<td align="center">変換されたHTMLをテンプレートに挿入する関数のラッピングクラス</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>handleExportPDF</code></td>
-<td align="center"><code>window</code>, <code>dialog</code></td>
-<td align="center"><code>none</code></td>
-<td align="center">ドキュメントをPDFとして出力する関数のラッピングクラス</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>watchFileChanges</code></td>
-<td align="center"><code>window</code>, <code>watchFilePath</code>, <code>templatePath</code>, <code>callback</code></td>
-<td align="center"><code>none</code></td>
-<td align="center">編集しているファイルのパスを監視し、変更があった場合に再描画を行う関数</td>
-<td align="center">複数ファイルを監視出来るのか??要検討</td>
-</tr>
-<tr>
-<td align="center"><code>reloadWindow</code></td>
-<td align="center"><code>filePath</code></td>
-<td align="center"><code>none</code></td>
-<td align="center">ウインドウの再描画を行う関数</td>
-<td align="center">レンダラープロセスにてモジュール化し、本クラスで呼び出す</td>
-</tr>
-<tr>
-<td align="center"><code>loadWindow</code></td>
-<td align="center"><code>window</code>, <code>templatePath</code></td>
-<td align="center"><code>none</code></td>
-<td align="center">画面をロードする関数</td>
-<td align="center">レンダラープロセスにてモジュール化し、本クラスで呼び出す</td>
-</tr>
-<tr>
-<td align="center"><code>app.on(&#39;ready&#39;)</code></td>
-<td align="center"><code>none</code></td>
-<td align="center"><code>none</code></td>
-<td align="center">アプリケーションの起動時に呼び出される関数</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>app.on(&#39;window-all-closed&#39;)</code></td>
-<td align="center"><code>none</code></td>
-<td align="center"><code>none</code></td>
-<td align="center">全てのウインドウが閉じられた時に呼び出される関数</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>app.on(&#39;activate&#39;)</code></td>
-<td align="center"><code>none</code></td>
-<td align="center"><code>none</code></td>
-<td align="center">アプリケーションがアクティブになった時に呼び出される関数</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<hr>
-<h4>modify history</h4>
-<table>
-<thead>
-<tr>
-<th align="center">date</th>
-<th align="center">modifier</th>
-<th align="center">content</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023/06/04</td>
-<td align="center">Atsuki Nohira</td>
-<td align="center">新規作成</td>
-</tr>
-</tbody></table>
-</div>
+		<div class="page">
+			<h1>マークダウンビュアーの作成に関する要求定義 主要</h1>
+			<ul>
+				<li>新規作成 ( Atsuki Nohira )<ul>
+						<li>2023/04/27</li>
+					</ul>
+				</li>
+			</ul>
+			<hr>
+			<h2>概要</h2>
+			<p>本文書は、マークダウンビュアーの作成に関する要求定義を記述するのものである。</p>
+			<ul>
+				<li>目的<ul>
+						<li>どのような機能を持ったマークダウンパーサーを作成するかを明確化する</li>
+						<li>要求定義、設計、実装、テストの際に、本文書を参照することで、作成するマークダウンビュアーの機能を明確にする</li>
+					</ul>
+				</li>
+				<li>想定する読者<ul>
+						<li>開発者</li>
+						<li>テスター</li>
+					</ul>
+				</li>
+			</ul>
+			<blockquote>
+				<p>ブラウザ表示</p>
+			</blockquote>
+			<!--<img src="https://storage.googleapis.com/zenn-user-upload/c64cc7d6b1cb-20230427.png" width=500>-->
+
+			<div class="img" style="text-align: center;">
+				<img src="https://storage.googleapis.com/zenn-user-upload/5e9a59e608dd-20230608.png" width=500>
+			</div>
+
+
+			<!-- 前のときのバージョン -->
+
+			<hr>
+			<h3>前提条件</h3>
+			<ul>
+				<li>マークダウンパーサーとは、マークダウン形式のテキストを解析し、HTML形式のテキストに変換するプログラムである</li>
+				<li>本プロジェクトの目的は、汎用的なマークダウンパーサー機能を備えたマークダウン形式のファイルをブラウザ上で表示するマークダウンビュアーを作成することである</li>
+			</ul>
+			<h3>用語の定義</h3>
+			<ul>
+				<li>マークダウン<ul>
+						<li>文書を記述するための軽量マークアップ言語の1つで、テキストエディターなどで手軽に書けることが特徴。HTMLに似た書き方をしており、文書の見出し、強調、リスト、リンクなどを記述することができる
+						</li>
+					</ul>
+				</li>
+				<li>HTML<ul>
+						<li>HyperText Markup Languageの略で、Webページを記述するための言語</li>
+					</ul>
+				</li>
+				<li>マークダウンパーサー<ul>
+						<li>マークダウン形式のテキストを解析し、HTML形式のテキストに変換するプログラム</li>
+					</ul>
+				</li>
+				<li>バイナリ<ul>
+						<li>0と1の2進数で表現されるデータのこと</li>
+					</ul>
+				</li>
+				<li>シンタックスハイライト<ul>
+						<li>マークダウンで記述する場合は「 ` 」(バッククオート)で記述される</li>
+						<li>バッククオートの前に言語名を書くことでその言語に応じたシンタックスハイライトがかかる</li>
+					</ul>
+				</li>
+				<li>スタックトレース<ul>
+						<li>スタックトレースとは、実行中のコンピュータプログラムにエラーが発生した際に、直前に実行していた関数やメソッドなどの履歴を表示すること</li>
+					</ul>
+				</li>
+				<li>テキストエディター<ul>
+						<li>Visual Studio Code</li>
+						<li>CotEditor</li>
+						<li>Sublime Text</li>
+						<li>さくらエディタ</li>
+						<li>など</li>
+					</ul>
+				</li>
+				<li>読み込み時間について(秒数は読み込み開始からの秒数)<ul>
+						<li>ファーストバイト<ul>
+								<li>読み込みから300ms</li>
+							</ul>
+						</li>
+						<li>レンダリング時間<ul>
+								<li>読み込みから2s</li>
+							</ul>
+						</li>
+						<li>ページ全体の読み込み時間</li>
+					</ul>
+				</li>
+				<li>CSS<ul>
+						<li>Cascading Style Sheetsの略で、HTMLなどのマークアップ言語で書かれた文書の表示方法を記述するための言語</li>
+					</ul>
+				</li>
+				<li>Chrome<ul>
+						<li>Googleが開発したWebブラウザ</li>
+					</ul>
+				</li>
+				<li>オーバーフロー<ul>
+						<li>コンテンツが親要素のサイズを超えた場合に、どのように表示するかを指定するプロパティ</li>
+					</ul>
+				</li>
+				<li>メインプロセス<ul>
+						<li>システム自体の制御を行うプロセス</li>
+						<li><code>./index.js</code>周囲のプロセスがメインプロセスとなる</li>
+						<li>レンダラープロセスとの違いに注意</li>
+					</ul>
+				</li>
+				<li>レンダラープロセス<ul>
+						<li>HTMLで読み込むJavaScriptやCSSを実行するプロセス</li>
+						<li><code>./html/script/index.js</code>がレンダラープロセスとなる</li>
+						<li>メインプロセスとの違いに注意</li>
+						<li>メインプロセスとレンダラープロセス間の通信方法については<code>main_renderer.md</code>を参照</li>
+					</ul>
+				</li>
+			</ul>
+			<blockquote>
+				<p>想定するmd、html形式についてシンタックスハイライトをつけて説明する</p>
+			</blockquote>
+			<hr>
+			<h1>目的</h1>
+			<ul>
+				<li>表現力があり、拡張性の高いマークダウンパーサー機能のあるローカルシステムの開発</li>
+			</ul>
+			<h2>背景</h2>
+			<ul>
+				<li>現行のマークダウン形式のビュアーでは、文字の大きさやレイアウトの調整などを簡単に行えないため</li>
+				<li>Visual Studio Codeにて編集する場合、同アプリケーションの拡張機能である<code>Live Server</code>では、ディレクトリ単位でのドキュメント管理が困難なため</li>
+			</ul>
+			<h2>狙い</h2>
+			<ul>
+				<li>カスタマイズ性、表現力に富みディレクトリ単位でドキュメントの閲覧が簡単にできるマークダウンビュアーを作成し、ドキュメントの作成を心地よいものにする。</li>
+			</ul>
+			<hr>
+			<h2>要求定義</h2>
+			<h3>ユーザー要求</h3>
+			<ul>
+				<li>Visual Studio Codeなどの拡張機能にあるマークダウンビュアーより表現度が高くしたい<ul>
+						<li>シンタックスハイライトをきれいに付ける</li>
+						<li>きれいとは<ul>
+								<li>言語仕様に則ったシンタックスハイライトが適用されている状態</li>
+							</ul>
+						</li>
+						<li>表現度を高くする<ul>
+								<li>ドキュメント作成者が<code>CSS</code>を当てることやタグを使用することで、表現度を高めることができる</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>ディレクトリ単位で表示することができる<ul>
+						<li>前例となるドキュメント作成方法はディレクトリ単位かつ、内容の表示をVisual Studio Codeの拡張機能に一任していた</li>
+					</ul>
+				</li>
+				<li>HTMLの記述は極力しない<ul>
+						<li>ヘッダー、フッターなどを省略したい</li>
+						<li>ただし、タグでの管理などはできるようにしたい</li>
+					</ul>
+				</li>
+				<li>Chromeの印刷機能を用いたPDFの出力はなるべくしたくない<ul>
+						<li>ファイルサイズが大きくなるため</li>
+					</ul>
+				</li>
+				<li>テキストエディターの部分は請け負わず、マークダウンパーサーとそのブラウザ表示を主とした機能としたい</li>
+			</ul>
+			<h3>機能要求</h3>
+			<ul>
+				<li>マークダウン形式のテキストを解析し、HTML形式のテキストに変換する</li>
+				<li>HTML形式のテキストに変換したものをブラウザに表示する</li>
+				<li>ブラウザでは保存されたら画面更新する</li>
+				<li>ページングを適切に行い、印刷形式を整える</li>
+				<li>PDF形式でドキュメントを出力する</li>
+			</ul>
+			<h3>非機能要求</h3>
+			<ul>
+				<li>性能要求<ul>
+						<li>表示速度を早くしたい<ul>
+								<li>膨大なページ数でも早く表示したい </li>
+								<li>早く<ul>
+										<li>数ミリ秒~数十ミリ秒程度</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>可用性要求<ul>
+						<li>プラットフォーム依存性<ul>
+								<li>原則macOSの動作を保証する</li>
+								<li>ブラウザを利用するためMicrosoft Windowsでも機能することを想定する</li>
+							</ul>
+						</li>
+						<li>エラーハンドリング<ul>
+								<li>エラーハンドリングはエラー文とスタックトレースを用いて表示する</li>
+								<li>原則言語仕様に則ったエラーをブラウザで表示する</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>セキュリティ<ul>
+						<li>ローカルネットワークを利用してブラウザ表示する場合のセキュリティホールについて検討</li>
+					</ul>
+				</li>
+				<li>スケーラビリティ<ul>
+						<li>Visual Studio Codeで利用できるように拡張したい</li>
+						<li>ディレクトリ単位で表示するようにしたい</li>
+					</ul>
+				</li>
+				<li>信頼性<ul>
+						<li>エラー率 1%以下</li>
+					</ul>
+				</li>
+				<li>リスクマネジメント<ul>
+						<li>初期リリース段階で機能を盛り込みすぎて頓挫する</li>
+						<li>独自タグの使用時に適切に反映されない</li>
+					</ul>
+				</li>
+			</ul>
+			<hr>
+			<blockquote>
+				<p>システム概要イメージ
+					<img src="https://storage.googleapis.com/zenn-user-upload/af571d5dc2cc-20230525.png" width=400>
+				</p>
+			</blockquote>
+			<h3>将来の展望(機能追加)</h3>
+			<ul>
+				<li>ファイルの出力形式を複数にする</li>
+				<li>Visual Studio Codeの拡張機能にする</li>
+				<li>膨大なページ数でも素早く表示する</li>
+			</ul>
+			<hr>
+			<h3>PDFの出力について</h3>
+			<ul>
+				<li>UIの指定<ul>
+						<li>A4の編集画面に際してどこかにPDF出力ボタンを作成する</li>
+						<li>PDF出力ボタンを押すと、PDFの出力が始まる</li>
+					</ul>
+				</li>
+				<li>PDF出力機能についてはNode.jsのライブラリを使用する</li>
+			</ul>
+			<hr>
+			<h4>変更履歴</h4>
+			<ul>
+				<li>2021/04/27<ul>
+						<li>要求の追加</li>
+						<li>テキストエディターに関する記述を追加</li>
+					</ul>
+				</li>
+				<li>2023/05/11<ul>
+						<li>主機能を再考後、マークダウンパーサーではなくマークダウン形式のファイルをシンプルにブラウザで表示する機能に変更</li>
+						<li>プロジェクト名をマークダウンパーサー作成ではなく、マークダウンビューアー作成に変更</li>
+						<li>システム概要イメージの追加</li>
+					</ul>
+				</li>
+				<li>2023/05/21<ul>
+						<li>マークダウンをパースする際に改ページ・コンテンツのオーバーフローによってページを分割する機能の要求を追加</li>
+					</ul>
+				</li>
+				<li>2023/05/25<ul>
+						<li>表示するHTMLをPDFとして出力する機能に関する要求を追加</li>
+					</ul>
+				</li>
+				<li>2023/06/08<ul>
+						<li>画面イメージを追加</li>
+					</ul>
+				</li>
+			</ul>
+			<h4>ドキュメントリンク</h4>
+			<ul>
+				<li><a href="./requirement_difine2.md">要件定義書</a></li>
+				<li><a href="./conceptual_design.md">構想設計書</a></li>
+			</ul>
+		</div>
 
 	</div>
 </body>
 <script src="./script/directory.js"></script>
 <script src="./script/view.js"></script>
+
 </html>

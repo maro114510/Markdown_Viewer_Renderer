@@ -1,105 +1,60 @@
 // This is real renderer process
 
-document.addEventListener("DOMContentLoaded", async function () {
-	await main();
+document.addEventListener("DOMContentLoaded", function () {
+	main();
 });
 
 async function main()
 {
-	var pages = Array.from( document.querySelectorAll( ".page" ) );
-	pageCount = pages.length;
-	const pageHeight = pages[ 0 ].clientHeight;
+	var pages = document.querySelectorAll( ".page" );
+	//A4の高さpx
+	var pageHeight = 1122;
 
-	for( let index = 0; index < pages.length; index++ )
+	for(let i = 0; i < pages.length; i++)
 	{
-		var contentHeight = pages[ index ].scrollHeight;
-		console.log( "contentHeight: " + contentHeight );
-		let overHeightElements = [];
+		var page = pages[i];
 
-		if( pageHeight <= contentHeight )
+		if( !page )
 		{
-			let childrenElements = Array.from( pages[ index ].children );
-			let accumulatedHeight = 0;
-	
-			childrenElements.forEach( function ( element ) {
-				accumulatedHeight += element.offsetHeight;
-	
-				if( pageHeight <= accumulatedHeight )
+			break;
+		}
+
+		while( page )
+		{
+			let pageContentScrollHeight = page.scrollHeight;
+			console.log( pageContentScrollHeight );
+			let overflowContents = [];
+			//pageHeightより大きい場合はpageのdivを作り、分割
+			if( pageContentScrollHeight > pageHeight )
+			{
+				//pageHeightまでpageContentScrollHeightを減らす
+				while( pageContentScrollHeight > pageHeight )
 				{
-					overHeightElements.push( element );
+					//削除しながらpageContentScrollHeightを減らす
+					var overflowContent = page.lastElementChild;
+					page.removeChild( overflowContent );
+					pageContentScrollHeight = page.scrollHeight;
+					//先入れ後出し
+					overflowContents.push( overflowContent );
 				}
-			});
-	
-			const newPage = document.createElement( "div" );
-			newPage.classList.add( "page" );
-			overHeightElements.forEach( function ( element ) {
-				newPage.appendChild( element );
-			});
 
-			//newPage.innerHTML = "<h1>TEST</h1>";
-			//pages.splice( index + 1, 0, newPage );
-			pages[ index ].parentNode.insertBefore( newPage, pages[ index + 1 ] );
+				//pageのdivを作り、分割したoverflowContentsを追加
+				var newPage = document.createElement( "div" );
+				newPage.classList.add( "page" );
+				//先入れ後出し
+				for( var j = overflowContents.length - 1; j >= 0; j-- )
+				{
+					var overflowContent = overflowContents[j];
+					newPage.appendChild( overflowContent );
+				}
+				console.log( page );
+				console.log( newPage );
+				page.parentNode.insertBefore( newPage, page.nextSibling );
+			}
 
-			console.log( newPage.innerHTML );
+			page = page.nextSibling;
 		}
 	}
-
-	return Promise.resolve();
-}
-
-
-function addAll()
-{
-	addDate();
-	appPageNumbers();
-	addFileName();
-}
-
-// Add page numbers to all page class elements
-function appPageNumbers()
-{
-	const pages = document.querySelectorAll( ".page" );
-	pages.forEach( function ( page, index ) {
-		const pageNumber = document.createElement( "div" );
-		pageNumber.classList.add( "page-number" );
-		pageNumber.innerHTML = index + 1;
-		page.appendChild( pageNumber );
-	});
-}
-
-// Add current date and time
-function addDate()
-{
-	const date = new Date();
-	const page = document.querySelectorAll( ".page" );
-	page.forEach( function ( page ) {
-		const dateElement = document.createElement( "div" );
-		dateElement.classList.add( "print-date" );
-		dateElement.innerHTML = date.toLocaleString();
-		page.insertBefore( dateElement, page.firstChild );
-	});
-}
-
-function addFileName()
-{
-	const page = document.querySelectorAll( ".page" );
-	page.forEach( function ( page ) {
-		const fileName = document.createElement( "div" );
-		fileName.classList.add( "file-name" );
-		fileName.innerHTML = document.title;
-		page.insertBefore( fileName, page.firstChild );
-	});
-}
-
-function cleanPage()
-{
-	const pages = document.querySelectorAll( ".page" );
-	pages.forEach( function ( page ) {
-		if( page.clientHeight === 0 )
-		{
-			page.parentNode.removeChild( page );
-		}
-	});
 }
 
 

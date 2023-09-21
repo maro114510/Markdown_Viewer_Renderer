@@ -19,7 +19,9 @@ async function main()
 			break;
 		}
 
-		while( page )
+		let nextPage = page;
+
+		while( nextPage )
 		{
 			let pageContentScrollHeight = page.scrollHeight;
 			console.log( pageContentScrollHeight );
@@ -52,7 +54,7 @@ async function main()
 				page.parentNode.insertBefore( newPage, page.nextSibling );
 			}
 
-			page = page.nextSibling;
+			nextPage = nextPage.nextElementSibling;
 		}
 	}
 }
